@@ -1,1 +1,1 @@
-process.argv = ['node', 'jest', '-a', '1']
+process.argv = ['node', 'jest', '-a', '1', '-z']
