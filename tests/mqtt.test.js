@@ -1,4 +1,5 @@
 /* eslint-disable no-undef,no-new,camelcase */
+process.argv = ['node', 'jest', '-a', '1']
 const MqttClient = require('../lib/mqtt')
 const logger = require('../lib/logs')
 const { eventEmitter } = require('../lib/utils')
