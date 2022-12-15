@@ -57,7 +57,7 @@ mqtt4teleinfo -a /dev/ttyUSB1 -b historic
 
 ## Versioning
 
-mqtt4apcaccess is maintained under the [semantic versioning](https://semver.org/) guidelines.
+mqtt4teleinfo is maintained under the [semantic versioning](https://semver.org/) guidelines.
 
 See the [releases](https://github.com/WoCha-FR/mqtt4teleinfo/releases) on this repository for changelog.
 
