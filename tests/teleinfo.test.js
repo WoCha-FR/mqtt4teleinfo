@@ -53,7 +53,7 @@ describe('Connection', () => {
 
 describe('Decode Checksum and Data', () => {
   const tic = new TeleInfo('/dev/ttyJEST0')
-  const tic2 = new TeleInfo('/dev/ttyJEST0', 'history')
+  const tic2 = new TeleInfo('/dev/ttyJEST0', 'historic')
   afterEach(() => {
     jest.restoreAllMocks()
   })
@@ -162,37 +162,37 @@ describe('processData function', () => {
   })
   test('Should warn on incomplete frame', () => {
     const spy = jest.spyOn(logger, 'warn')
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.processData(frame.substring(25))
     expect(spy).toHaveBeenCalledWith('Incomplete frame received')
   })
   test('Should warn on checksum error', () => {
     const spy = jest.spyOn(logger, 'warn')
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.processData(frame2)
     expect(spy).toHaveBeenCalledWith('Checksum error for \'IMAX 000 1\'')
     expect(tic.actualFrame).toBeUndefined()
   })
   test('Should update frame data', () => {
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.processData(frame)
     expect(tic.actualFrame).toEqual({ ADCO: '031428143221', BASE: '003775961', IINST: '000', IMAX: '000', ISOUSC: '15', MOTDETAT: '000000', OPTARIF: 'BASE', PAPP: '00000', PTEC: 'TH' })
   })
   test('Should reset actual data each minute', () => {
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.lastEmitTime = Date.now() - 60001
     tic.processData(frame)
     expect(tic.actualFrame).toEqual({ ADCO: '031428143221', BASE: '003775961', IINST: '000', IMAX: '000', ISOUSC: '15', MOTDETAT: '000000', OPTARIF: 'BASE', PAPP: '00000', PTEC: 'TH' })
   })
   test('Should send emit event with right values', () => {
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.processData(frame)
     expect(spy).toHaveBeenCalledWith('frame', '031428143221', { ADCO: '031428143221', BASE: '003775961', IINST: '000', IMAX: '000', ISOUSC: '15', MOTDETAT: '000000', OPTARIF: 'BASE', PAPP: '00000', PTEC: 'TH' })
   })
   test('Should not send emit event if same frame', () => {
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    const tic = new TeleInfo('/dev/ttyJEST0', 'history')
+    const tic = new TeleInfo('/dev/ttyJEST0', 'historic')
     tic.actualFrame = { ADCO: '031428143221', BASE: '003775961', IINST: '000', IMAX: '000', ISOUSC: '15', MOTDETAT: '000000', OPTARIF: 'BASE', PAPP: '00000', PTEC: 'TH' }
     tic.processData(frame)
     expect(spy).not.toHaveBeenCalled()
