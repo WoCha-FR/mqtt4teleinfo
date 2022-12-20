@@ -75,6 +75,41 @@ describe('Decode Checksum and Data', () => {
     tic.getLineData('UMOY1\tE221013203000\t235\t#', ret)
     expect(ret.UMOY1).toEqual('235')
   })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 00 8', ret)
+    expect(ret).toEqual({ PPOT1: 0, PPOT2: 0, PPOT3: 0 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 02 8', ret)
+    expect(ret).toEqual({ PPOT1: 1, PPOT2: 0, PPOT3: 0 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 04 8', ret)
+    expect(ret).toEqual({ PPOT1: 0, PPOT2: 1, PPOT3: 0 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 06 8', ret)
+    expect(ret).toEqual({ PPOT1: 1, PPOT2: 1, PPOT3: 0 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 08 8', ret)
+    expect(ret).toEqual({ PPOT1: 0, PPOT2: 0, PPOT3: 1 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 0C 8', ret)
+    expect(ret).toEqual({ PPOT1: 0, PPOT2: 1, PPOT3: 1 })
+  })
+  test('Shoud decode PPOT frame on historic mode', () => {
+    const ret = {}
+    tic2.getLineData('PPOT 0E 8', ret)
+    expect(ret).toEqual({ PPOT1: 1, PPOT2: 1, PPOT3: 1 })
+  })
   test('Shoud decode STGE frame on standard mode', () => {
     const ret = {}
     tic.getLineData('STGE\t40000001\tC', ret)
