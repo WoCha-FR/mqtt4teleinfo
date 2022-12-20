@@ -13,15 +13,32 @@ jobs:
       matrix:
         node-version: ['16', '17', 'lts/*', 'node']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@master
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run cover
-      - name: Coveralls
+      
+      - name: npm install
+        run: npm ci
+      
+      - name: Test ${{ matrix.node-version }}
+        run: npm run lint
+        run: npm run cover-${{ matrix.node-version }}
+      
+      - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
         with :
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.node-version }}
+          parallel: true
+
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
