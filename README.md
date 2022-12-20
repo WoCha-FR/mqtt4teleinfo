@@ -1,10 +1,10 @@
 # mqtt4teleinfo
 
-![npm](https://img.shields.io/npm/v/mqtt4teleinfo)
-![License](https://img.shields.io/github/license/WoCha-FR/mqtt4teleinfo)
-[![Build Status](https://app.travis-ci.com/WoCha-FR/mqtt4teleinfo.svg?branch=main)](https://app.travis-ci.com/WoCha-FR/mqtt4teleinfo)
+[![npm](https://www.npmjs.com/package/mqtt4teleinfo)](https://img.shields.io/npm/v/mqtt4teleinfo)
+[![License](https://github.com/WoCha-FR/mqtt4teleinfo/blob/main/LICENSE)](https://img.shields.io/github/license/WoCha-FR/mqtt4teleinfo)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/WoCha-FR/mqtt4teleinfo/node-js.yml?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/WoCha-FR/mqtt4teleinfo/badge.svg?branch=main)](https://coveralls.io/github/WoCha-FR/mqtt4teleinfo?branch=main)
-![npm](https://img.shields.io/npm/dt/mqtt4teleinfo)
+[![npm](https://www.npmjs.com/package/mqtt4teleinfo)](https://img.shields.io/npm/dt/mqtt4teleinfo)
 
 Publish values from french electricity meter to MQTT
 
