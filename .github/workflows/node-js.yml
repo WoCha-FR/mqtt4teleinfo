@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
       
       - name: Test ${{ matrix.node-version }}
-        run: npm run cover-${{ matrix.node-version }}
+        run: npm run cover
       
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
