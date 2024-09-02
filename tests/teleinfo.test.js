@@ -1,4 +1,4 @@
-/* eslint-disable no-undef,no-new */
+/* eslint-disable no-undef */
 const TeleInfo = require('../lib/teleinfo')
 const logger = require('../lib/logs')
 const { eventEmitter } = require('../lib/utils')

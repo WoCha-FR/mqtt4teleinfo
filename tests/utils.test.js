@@ -1,4 +1,4 @@
-/* eslint-disable no-undef,no-new,camelcase */
+/* eslint-disable no-undef */
 const { EventEmitter } = require('events')
 const { eventEmitter } = require('../lib/utils')
 
