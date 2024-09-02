@@ -1,6 +1,6 @@
 {
   "name": "mqtt4teleinfo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Publish values from french electricity meter to MQTT",
   "main": "index.js",
   "bin": {

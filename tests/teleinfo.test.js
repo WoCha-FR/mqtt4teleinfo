@@ -33,7 +33,7 @@ describe('Connection', () => {
   })
   test('connect should throw an error on failed port', async () => {
     const tic = new TeleInfo('/dev/ttyJEST1')
-    await expect(async () => { await tic.connect() }).rejects.toThrowError(new Error('Error: No such file or directory, cannot open /dev/ttyJEST1'))
+    await expect(async () => { await tic.connect() }).rejects.toThrowError(new Error('Opening /dev/ttyJEST1: Unknown error code 3'))
   })
   test('TeleInfo should disconnect when SIGTERM And SIGINT are emitted', async () => {
     const tic = new TeleInfo('/dev/ttyJEST0')
@@ -188,9 +188,12 @@ describe('processData function', () => {
   frame2 += LF + 'ISOUSC 15 <' + CR + LF + 'BASE 003775961 1' + CR + LF + 'PTEC TH.. $' + CR
   frame2 += LF + 'IINST 000 W' + CR + LF + 'IMAX 000 1' + CR + LF + 'PAPP 00000 !' + CR
   frame2 += LF + 'MOTDETAT 000000 B'
-  let frame3 = 'ADSC\t042076248191\t9' + CR + LF + 'VTIC\t02\tJ' + CR
-  frame3 += LF + 'DATE\tE221016123654\t\t?' + CR + LF + 'NGTF\t     TEMPO\tF' + CR
+  let frame3 = 'ADSC\t042076248191\t9' + CR + LF + 'VTIC\t02\tJ' + CR + LF + 'IRMS1\t001\t/' + CR
+  frame3 += LF + 'DATE\tE221016123654\t\t?' + CR + LF + 'NGTF\t     TEMPO\tF' + CR + LF + 'URMS1\t238\tG' + CR
   frame3 += LF + 'LTARF\t    HP  BLEU\t+'
+  let frame4 = 'ADSC\t042076248191\t9' + CR + LF + 'NGTF\t     TEMPO\tF' + CR
+  frame4 += LF + 'IRMS1\t002\t0' + CR + LF + 'IRMS2\t002\t1' + CR + LF + 'IRMS3\t002\t2' + CR
+  frame4 += LF + 'URMS1\t235\tD' + CR + LF + 'URMS2\t236\tF' + CR + LF + 'URMS3\t237\tH'
 
   afterEach(() => {
     jest.restoreAllMocks()
@@ -235,7 +238,12 @@ describe('processData function', () => {
   test('Should not report DATE in standard mode', () => {
     const tic = new TeleInfo('/dev/ttyJEST0')
     tic.processData(frame3)
-    expect(tic.actualFrame).toEqual({ ADSC: '042076248191', LTARF: 'HP BLEU', NGTF: 'TEMPO', VTIC: '02' })
+    expect(tic.actualFrame).toEqual({ ADSC: '042076248191', LTARF: 'HP BLEU', NGTF: 'TEMPO', VTIC: '02', IRMS1: '001', URMS1: '238', PRMS: '238' })
+  })
+  test('Should return POWER in standard mode', () => {
+    const tic = new TeleInfo('/dev/ttyJEST0')
+    tic.processData(frame4)
+    expect(tic.actualFrame).toEqual({ ADSC: '042076248191', NGTF: 'TEMPO', IRMS1: '002', IRMS2: '002', IRMS3: '002', URMS1: '235', URMS2: '236', URMS3: '237', PRMS1: '470', PRMS2: '472', PRMS3: '474', PRMS: '1416', IRMS: '6' })
   })
 })
 

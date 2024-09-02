@@ -8,6 +8,10 @@
 
 Publish values from french electricity meter to MQTT
 
+## Update 1.0.5
+
+Add calculated values : Power in Watt in standard mode.
+
 ## Installing
 
 Simply install the package over npm. This will install all the required dependencies.
