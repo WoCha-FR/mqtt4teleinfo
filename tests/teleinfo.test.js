@@ -33,7 +33,7 @@ describe('Connection', () => {
   })
   test('connect should throw an error on failed port', async () => {
     const tic = new TeleInfo('/dev/ttyJEST1')
-    await expect(async () => { await tic.connect() }).rejects.toThrowError(new Error('Opening /dev/ttyJEST1: Unknown error code 3'))
+    await expect(async () => { await tic.connect() }).rejects.toThrowError(new Error('Error: No such file or directory, cannot open /dev/ttyJEST1'))
   })
   test('TeleInfo should disconnect when SIGTERM And SIGINT are emitted', async () => {
     const tic = new TeleInfo('/dev/ttyJEST0')
